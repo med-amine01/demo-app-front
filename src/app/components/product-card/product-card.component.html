@@ -1,0 +1,26 @@
+<div class="product-card">
+  <div class="product-header">
+    <h3 class="product-name">{{ product.name }}</h3>
+    <span class="stock-status" [class]="stockStatus.class">
+      {{ stockStatus.text }}
+    </span>
+  </div>
+
+  <div class="product-details">
+    <div class="price-section">
+      <span class="price">{{ formattedPrice }}</span>
+      <span class="quantity">Qty: {{ product.quantity }}</span>
+    </div>
+
+    <div class="product-id">
+      ID: {{ product.id }}
+    </div>
+  </div>
+
+  <div class="product-actions">
+    <button class="view-details-btn" [routerLink]="['/products', product.id]">
+      View Details
+    </button>
+  </div>
+</div>
+

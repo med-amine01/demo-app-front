@@ -1,0 +1,19 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">{{ title }}</h1>
+      <nav class="app-nav">
+        <a routerLink="/products" routerLinkActive="active" class="nav-link">Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2024 Product Inventory Demo. Built with Angular.</p>
+  </footer>
+</div>
+

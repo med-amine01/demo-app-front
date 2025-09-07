@@ -1,0 +1,38 @@
+<div class="product-list-container">
+  <header class="product-list-header">
+    <h1>Product Inventory</h1>
+    <p class="subtitle">Browse our complete product catalog</p>
+  </header>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading products...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error()" class="error-container">
+    <div class="error-icon">⚠️</div>
+    <p class="error-message">{{ error() }}</p>
+    <button class="retry-button" (click)="loadProducts()">
+      Try Again
+    </button>
+  </div>
+
+  <!-- Products Grid -->
+  <div *ngIf="!isLoading() && !error() && products().length > 0" class="products-grid">
+    <app-product-card
+      *ngFor="let product of products(); trackBy: trackByProductId"
+      [product]="product"
+      class="product-card"
+    ></app-product-card>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading() && !error() && products().length === 0" class="empty-state">
+    <div class="empty-icon">📦</div>
+    <h3>No Products Found</h3>
+    <p>There are currently no products in the inventory.</p>
+  </div>
+</div>
+

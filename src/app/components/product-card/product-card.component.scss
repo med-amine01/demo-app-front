@@ -1,0 +1,131 @@
+.product-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+
+  .product-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    flex: 1;
+    margin-right: 1rem;
+  }
+
+  .stock-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &.in-stock {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    &.low-stock {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    &.out-of-stock {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+  }
+}
+
+.product-details {
+  margin-bottom: 1.5rem;
+
+  .price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #059669;
+    }
+
+    .quantity {
+      font-size: 0.875rem;
+      color: #6b7280;
+      background: #f3f4f6;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+  }
+
+  .product-id {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    font-family: 'Courier New', monospace;
+  }
+}
+
+.product-actions {
+  .view-details-btn {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #0056b3;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .product-card {
+    padding: 1rem;
+  }
+
+  .product-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    .product-name {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .price-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
