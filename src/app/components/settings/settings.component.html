@@ -1,0 +1,366 @@
+<!-- Page Header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="h4 mb-1">
+      <i class="bi bi-gear me-2"></i>
+      Settings
+    </h2>
+    <p class="text-muted mb-0">Manage your application preferences</p>
+  </div>
+</div>
+
+<!-- Settings Tabs -->
+<ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link active"
+      id="profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#profile"
+      type="button"
+      role="tab"
+    >
+      <i class="bi bi-person me-1"></i>Profile
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="system-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#system"
+      type="button"
+      role="tab"
+    >
+      <i class="bi bi-gear me-1"></i>System
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="categories-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#categories"
+      type="button"
+      role="tab"
+    >
+      <i class="bi bi-tags me-1"></i>Categories
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="users-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#users"
+      type="button"
+      role="tab"
+    >
+      <i class="bi bi-people me-1"></i>Users
+    </button>
+  </li>
+</ul>
+
+<div class="tab-content" id="settingsTabsContent">
+  <!-- Profile Tab -->
+  <div class="tab-pane fade show active" id="profile" role="tabpanel">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-bottom">
+            <h5 class="mb-0">
+              <i class="bi bi-person-circle me-2"></i>
+              User Profile
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="userProfile.name"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  [value]="userProfile.email"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Role</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="userProfile.role"
+                  readonly
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Last Login</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="userProfile.lastLogin"
+                  readonly
+                />
+              </div>
+            </div>
+            <button class="btn btn-primary">
+              <i class="bi bi-check me-1"></i>Update Profile
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div
+              class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+              style="width: 80px; height: 80px"
+            >
+              <i class="bi bi-person text-dark fs-1"></i>
+            </div>
+            <h5>{{ userProfile.name }}</h5>
+            <p class="text-muted">{{ userProfile.role }}</p>
+            <button class="btn btn-outline-dark btn-sm">
+              <i class="bi bi-camera me-1"></i>Change Avatar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Tab -->
+  <div class="tab-pane fade" id="system" role="tabpanel">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-bottom">
+            <h5 class="mb-0">
+              <i class="bi bi-sliders me-2"></i>
+              System Settings
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Low Stock Threshold</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="systemSettings.lowStockThreshold"
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Language</label>
+                <select
+                  class="form-select"
+                  [(ngModel)]="systemSettings.language"
+                >
+                  <option>English</option>
+                  <option>Spanish</option>
+                  <option>French</option>
+                  <option>German</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Timezone</label>
+                <select
+                  class="form-select"
+                  [(ngModel)]="systemSettings.timezone"
+                >
+                  <option>UTC-5</option>
+                  <option>UTC-4</option>
+                  <option>UTC-3</option>
+                  <option>UTC+0</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <h6>Notifications</h6>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [(ngModel)]="systemSettings.emailNotifications"
+                />
+                <label class="form-check-label">Email Notifications</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [(ngModel)]="systemSettings.autoReorder"
+                />
+                <label class="form-check-label">Auto Reorder</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [(ngModel)]="systemSettings.darkMode"
+                />
+                <label class="form-check-label">Dark Mode</label>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" (click)="saveSettings()">
+              <i class="bi bi-check me-1"></i>Save Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories Tab -->
+  <div class="tab-pane fade" id="categories" role="tabpanel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">
+        <i class="bi bi-tags me-2"></i>
+        Product Categories
+      </h5>
+      <button class="btn btn-primary" (click)="addCategory()">
+        <i class="bi bi-plus me-1"></i>Add Category
+      </button>
+    </div>
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Category Name</th>
+                <th>Products Count</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 35px; height: 35px"
+                    >
+                      <i class="bi bi-tag text-dark"></i>
+                    </div>
+                    <span class="fw-medium">{{ category.name }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="badge bg-light text-dark border">{{
+                    category.count
+                  }}</span>
+                </td>
+                <td>
+                  <span
+                    class="badge"
+                    [class]="
+                      category.active
+                        ? 'bg-light text-dark border'
+                        : 'bg-dark text-light'
+                    "
+                  >
+                    {{ category.active ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-primary">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Tab -->
+  <div class="tab-pane fade" id="users" role="tabpanel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">
+        <i class="bi bi-people me-2"></i>
+        User Management
+      </h5>
+      <button class="btn btn-primary" (click)="addUser()">
+        <i class="bi bi-person-plus me-1"></i>Add User
+      </button>
+    </div>
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 35px; height: 35px"
+                    >
+                      <i class="bi bi-person text-dark"></i>
+                    </div>
+                    <span class="fw-medium">{{ user.name }}</span>
+                  </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                  <span class="badge bg-light text-dark border">{{
+                    user.role
+                  }}</span>
+                </td>
+                <td>
+                  <span
+                    class="badge"
+                    [class]="
+                      user.status === 'Active'
+                        ? 'bg-light text-dark border'
+                        : 'bg-dark text-light'
+                    "
+                  >
+                    {{ user.status }}
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-primary">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

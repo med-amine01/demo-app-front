@@ -10,7 +10,7 @@ import { ProductCardComponent } from '../product-card/product-card.component';
   standalone: true,
   imports: [CommonModule, RouterModule, ProductCardComponent],
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
   private readonly productService = inject(ProductService);
@@ -29,19 +29,23 @@ export class ProductListComponent implements OnInit {
     this.error.set(null);
 
     this.productService.getAllProducts().subscribe({
-      next: (products) => {
+      next: products => {
         this.products.set(products);
         this.isLoading.set(false);
       },
-      error: (err) => {
+      error: err => {
         this.error.set('Failed to load products. Please try again later.');
         this.isLoading.set(false);
         console.error('Error loading products:', err);
-      }
+      },
     });
   }
 
   trackByProductId(index: number, product: Product): string {
     return product.id;
+  }
+
+  formattedPrice(price: number): string {
+    return `$${price.toFixed(2)}`;
   }
 }

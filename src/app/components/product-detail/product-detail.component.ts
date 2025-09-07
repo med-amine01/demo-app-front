@@ -9,7 +9,7 @@ import { Product } from '../../models/product.interface';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -27,7 +27,7 @@ export class ProductDetailComponent implements OnInit {
 
   loadProduct(): void {
     const productId = this.route.snapshot.paramMap.get('id');
-    
+
     if (!productId) {
       this.error.set('Product ID is required');
       return;
@@ -37,15 +37,17 @@ export class ProductDetailComponent implements OnInit {
     this.error.set(null);
 
     this.productService.getProductById(productId).subscribe({
-      next: (product) => {
+      next: product => {
         this.product.set(product);
         this.isLoading.set(false);
       },
-      error: (err) => {
-        this.error.set('Failed to load product details. Please try again later.');
+      error: err => {
+        this.error.set(
+          'Failed to load product details. Please try again later.'
+        );
         this.isLoading.set(false);
         console.error('Error loading product:', err);
-      }
+      },
     });
   }
 
@@ -69,5 +71,14 @@ export class ProductDetailComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/products']);
+  }
+
+  addToCart(): void {
+    const product = this.product();
+    if (product && product.quantity > 0) {
+      // TODO: Implement cart functionality
+      console.log('Adding to cart:', product);
+      alert(`${product.name} added to cart!`);
+    }
   }
 }

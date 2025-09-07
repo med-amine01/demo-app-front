@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Product } from '../models/product.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
   private readonly http = inject(HttpClient);
@@ -25,4 +25,3 @@ export class ProductService {
     return this.http.get<Product>(`${this.apiUrl}/products/${id}`);
   }
 }
-

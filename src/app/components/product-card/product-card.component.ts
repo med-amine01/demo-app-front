@@ -8,7 +8,7 @@ import { Product } from '../../models/product.interface';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss']
+  styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
@@ -27,4 +27,3 @@ export class ProductCardComponent {
     return `$${this.product.price.toFixed(2)}`;
   }
 }
-

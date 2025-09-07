@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run Prettier to format staged files
+npx prettier --write "src/**/*.{ts,html,scss,css,json}"
