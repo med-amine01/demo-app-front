@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,6 +11,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
+  private readonly authService = inject(AuthService);
+
   // Static data for settings
   userProfile = {
     name: 'Admin User',
@@ -65,16 +68,17 @@ export class SettingsComponent {
 
   saveSettings() {
     // Simulate saving settings
-    console.log('Settings saved:', this.systemSettings);
   }
 
   addCategory() {
     // Simulate adding category
-    console.log('Adding new category');
   }
 
   addUser() {
     // Simulate adding user
-    console.log('Adding new user');
+  }
+
+  async logout(): Promise<void> {
+    await this.authService.logout();
   }
 }

@@ -1,16 +1,78 @@
 import { Routes } from '@angular/router';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ReportsComponent } from './components/reports/reports.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { AuthGuard } from './guards/auth.guard';
+import { UserRoles } from './models/user-roles.enum';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'reports', component: ReportsComponent },
-  { path: 'settings', component: SettingsComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./components/landing/landing.component').then(
+        m => m.LandingComponent
+      ),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./components/dashboard/dashboard.component').then(
+        m => m.DashboardComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.USER, UserRoles.ADMIN] },
+  },
+  {
+    path: 'products',
+    loadComponent: () =>
+      import('./components/product-list/product-list.component').then(
+        m => m.ProductListComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.USER, UserRoles.ADMIN] },
+  },
+  {
+    path: 'products/add',
+    loadComponent: () =>
+      import('./components/product-form/product-form.component').then(
+        m => m.ProductFormComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.ADMIN] },
+  },
+  {
+    path: 'products/edit/:id',
+    loadComponent: () =>
+      import('./components/product-form/product-form.component').then(
+        m => m.ProductFormComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.ADMIN] },
+  },
+  {
+    path: 'products/:id',
+    loadComponent: () =>
+      import('./components/product-detail/product-detail.component').then(
+        m => m.ProductDetailComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.USER, UserRoles.ADMIN] },
+  },
+  {
+    path: 'reports',
+    loadComponent: () =>
+      import('./components/reports/reports.component').then(
+        m => m.ReportsComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.ADMIN] },
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./components/settings/settings.component').then(
+        m => m.SettingsComponent
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.ADMIN] },
+  },
   { path: '**', redirectTo: '/dashboard' },
 ];

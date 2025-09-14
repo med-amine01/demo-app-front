@@ -9,7 +9,7 @@
   <!-- Product Details Card -->
   <div class="row">
     <div class="col-lg-8">
-      <div class="card border-0 shadow-sm bg-white">
+      <div class="card border-0 shadow-sm bg-white rounded">
         <div class="card-body p-4">
           <div class="row">
             <div class="col-md-8">
@@ -20,7 +20,7 @@
 
               <div class="row mb-4">
                 <div class="col-sm-6">
-                  <div class="card bg-light">
+                  <div class="card bg-light rounded">
                     <div class="card-body text-center">
                       <i class="bi bi-currency-dollar text-dark fs-2"></i>
                       <div class="h5 text-dark fw-bold mt-2">
@@ -31,7 +31,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="card bg-light">
+                  <div class="card bg-light rounded">
                     <div class="card-body text-center">
                       <i class="bi bi-boxes text-dark fs-2"></i>
                       <div
@@ -102,16 +102,19 @@
 
               <div class="d-flex gap-2">
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-danger"
                   (click)="addToCart()"
                   [disabled]="(product()?.quantity ?? 0) === 0"
                 >
                   <i class="bi bi-cart-plus me-2"></i>Add to Cart
                 </button>
-                <button class="btn btn-outline-primary">
+                <button class="btn btn-outline-danger" (click)="editProduct()">
                   <i class="bi bi-pencil me-2"></i>Edit Product
                 </button>
-                <button class="btn btn-outline-primary">
+                <button
+                  class="btn btn-outline-danger"
+                  (click)="deleteProduct()"
+                >
                   <i class="bi bi-trash me-2"></i>Delete
                 </button>
               </div>
