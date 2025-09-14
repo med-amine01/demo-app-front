@@ -69,70 +69,31 @@
   <div class="tab-pane fade show active" id="profile" role="tabpanel">
     <div class="row">
       <div class="col-lg-8">
-        <div class="card border-0 shadow-sm rounded">
-          <div class="card-header bg-white border-bottom">
-            <h5 class="mb-0">
-              <i class="bi bi-person-circle me-2"></i>
-              User Profile
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Full Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [value]="userProfile.name"
-                />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  [value]="userProfile.email"
-                />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Role</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [value]="userProfile.role"
-                  readonly
-                />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Last Login</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [value]="userProfile.lastLogin"
-                  readonly
-                />
-              </div>
-            </div>
-            <button class="btn btn-danger">
-              <i class="bi bi-check me-1"></i>Update Profile
-            </button>
-          </div>
-        </div>
+        <app-user-info></app-user-info>
       </div>
       <div class="col-lg-4">
         <div class="card border-0 shadow-sm rounded">
-          <div class="card-body text-center">
-            <div
-              class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
-              style="width: 80px; height: 80px"
-            >
-              <i class="bi bi-person text-dark fs-1"></i>
+          <div class="card-header bg-white border-bottom">
+            <h5 class="mb-0">
+              <i class="bi bi-info-circle me-2"></i>
+              Quick Actions
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-primary">
+                <i class="bi bi-key me-2"></i>
+                Change Password
+              </button>
+              <button class="btn btn-outline-secondary">
+                <i class="bi bi-bell me-2"></i>
+                Notification Settings
+              </button>
+              <button class="btn btn-outline-info">
+                <i class="bi bi-download me-2"></i>
+                Export Data
+              </button>
             </div>
-            <h5>{{ userProfile.name }}</h5>
-            <p class="text-muted">{{ userProfile.role }}</p>
-            <button class="btn btn-outline-dark btn-sm">
-              <i class="bi bi-camera me-1"></i>Change Avatar
-            </button>
           </div>
         </div>
       </div>

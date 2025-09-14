@@ -1,0 +1,167 @@
+<!-- Loading State -->
+@if (isLoading()) {
+  <div class="d-flex justify-content-center align-items-center p-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <span class="ms-2">Loading user information...</span>
+  </div>
+}
+
+<!-- Not Authenticated State -->
+@if (!isLoading() && !isAuthenticated()) {
+  <div class="card border-0 shadow-sm rounded">
+    <div class="card-body text-center">
+      <div class="mb-3">
+        <i class="bi bi-person-circle display-1 text-muted"></i>
+      </div>
+      <h5 class="card-title">Not Logged In</h5>
+      <p class="card-text text-muted">
+        Please log in to view your profile information.
+      </p>
+      <button type="button" class="btn btn-primary" (click)="handleLogin()">
+        <i class="bi bi-box-arrow-in-right me-2"></i>
+        Login
+      </button>
+    </div>
+  </div>
+}
+
+<!-- Authenticated State -->
+@if (!isLoading() && isAuthenticated() && userProfile()) {
+  <div class="card border-0 shadow-sm rounded">
+    <div
+      class="card-header bg-white border-bottom d-flex justify-content-between align-items-center"
+    >
+      <h5 class="mb-0">
+        <i class="bi bi-person-circle me-2"></i>
+        User Profile
+      </h5>
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        (click)="refreshUserInfo()"
+        title="Refresh user information"
+      >
+        <i class="bi bi-arrow-clockwise"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <!-- Basic Information -->
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <strong>Username:</strong>
+        </div>
+        <div class="col-sm-9">
+          <code>{{ userProfile()?.username || 'N/A' }}</code>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <strong>Email:</strong>
+        </div>
+        <div class="col-sm-9">
+          {{ userProfile()?.email || 'N/A' }}
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <strong>First Name:</strong>
+        </div>
+        <div class="col-sm-9">
+          {{ userProfile()?.firstName || 'N/A' }}
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <strong>Last Name:</strong>
+        </div>
+        <div class="col-sm-9">
+          {{ userProfile()?.lastName || 'N/A' }}
+        </div>
+      </div>
+
+      <!-- User Roles -->
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <strong>Roles:</strong>
+        </div>
+        <div class="col-sm-9">
+          @if (userRoles().length > 0) {
+            <div class="d-flex flex-wrap gap-1">
+              @for (role of userRoles(); track role) {
+                <span class="badge" [ngClass]="getRoleBadgeClass(role)">
+                  {{ role }}
+                </span>
+              }
+            </div>
+          } @else {
+            <span class="text-muted">No roles assigned</span>
+          }
+        </div>
+      </div>
+
+      <!-- Additional Profile Information -->
+      @if (userProfile()?.attributes) {
+        <hr />
+        <h6 class="mb-3">
+          <i class="bi bi-gear me-2"></i>
+          Additional Information
+        </h6>
+
+        @for (
+          attribute of getObjectEntries(userProfile()?.attributes);
+          track attribute.key
+        ) {
+          <div class="row mb-2">
+            <div class="col-sm-3">
+              <strong>{{ formatAttributeName(attribute.key) }}:</strong>
+            </div>
+            <div class="col-sm-9">
+              {{ formatAttributeValue(attribute.value) }}
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Actions -->
+      <hr />
+      <div class="d-flex gap-2">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="handleLogout()"
+        >
+          <i class="bi bi-box-arrow-right me-2"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Error State -->
+@if (!isLoading() && isAuthenticated() && !userProfile()) {
+  <div class="card border-0 shadow-sm rounded">
+    <div class="card-body text-center">
+      <div class="mb-3">
+        <i class="bi bi-exclamation-triangle display-1 text-warning"></i>
+      </div>
+      <h5 class="card-title">Error Loading Profile</h5>
+      <p class="card-text text-muted">
+        Unable to load user profile information.
+      </p>
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="refreshUserInfo()"
+      >
+        <i class="bi bi-arrow-clockwise me-2"></i>
+        Try Again
+      </button>
+    </div>
+  </div>
+}
