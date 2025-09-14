@@ -25,7 +25,7 @@ export class ProductDetailComponent implements OnInit {
     this.loadProduct();
   }
 
-  loadProduct(): void {
+  async loadProduct(): Promise<void> {
     const productId = this.route.snapshot.paramMap.get('id');
 
     if (!productId) {
@@ -36,19 +36,25 @@ export class ProductDetailComponent implements OnInit {
     this.isLoading.set(true);
     this.error.set(null);
 
-    this.productService.getProductById(productId).subscribe({
-      next: product => {
-        this.product.set(product);
-        this.isLoading.set(false);
-      },
-      error: err => {
-        this.error.set(
-          'Failed to load product details. Please try again later.'
-        );
-        this.isLoading.set(false);
-        console.error('Error loading product:', err);
-      },
-    });
+    try {
+      const productObservable =
+        await this.productService.getProductById(productId);
+      productObservable.subscribe({
+        next: product => {
+          this.product.set(product);
+          this.isLoading.set(false);
+        },
+        error: err => {
+          this.error.set(
+            'Failed to load product details. Please try again later.'
+          );
+          this.isLoading.set(false);
+        },
+      });
+    } catch (err) {
+      this.error.set('Failed to load product details. Please try again later.');
+      this.isLoading.set(false);
+    }
   }
 
   get stockStatus(): { text: string; class: string } {
@@ -77,8 +83,43 @@ export class ProductDetailComponent implements OnInit {
     const product = this.product();
     if (product && product.quantity > 0) {
       // TODO: Implement cart functionality
-      console.log('Adding to cart:', product);
       alert(`${product.name} added to cart!`);
+    }
+  }
+
+  editProduct(): void {
+    const product = this.product();
+    if (product) {
+      this.router.navigate(['/products/edit', product.id]);
+    }
+  }
+
+  async deleteProduct(): Promise<void> {
+    const product = this.product();
+    if (
+      product &&
+      confirm(`Are you sure you want to delete "${product.name}"?`)
+    ) {
+      this.isLoading.set(true);
+      this.error.set(null);
+
+      try {
+        const deleteObservable = await this.productService.deleteProduct(
+          product.id
+        );
+        deleteObservable.subscribe({
+          next: () => {
+            this.router.navigate(['/products']);
+          },
+          error: err => {
+            this.error.set('Failed to delete product. Please try again later.');
+            this.isLoading.set(false);
+          },
+        });
+      } catch (err) {
+        this.error.set('Failed to delete product. Please try again later.');
+        this.isLoading.set(false);
+      }
     }
   }
 }
